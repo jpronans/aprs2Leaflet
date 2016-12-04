@@ -22,7 +22,6 @@ def callback(packet):
         'longitude' in packet and
         'speed' in packet and
         packet['to'] != 'APDR13'):
-
         f = open("aprstations.js", "a+")
 
         # Code taken from:
@@ -49,7 +48,7 @@ def callback(packet):
             f.truncate()
 
         # Generate the required format
-        outStr = "\n["+str(packet['latitude'])+", "+str(packet['longitude'])+", 1], <!-- "+repr(packet['raw'])+" -->\n];\n"
+        outStr = "\n[%.5f, %.5f, 1]    <!-- %s -->\n]];\n" % (float(packet['latitude']), float(packet['longitude']), repr(packet['raw']))
 
         # Write it
         try:
